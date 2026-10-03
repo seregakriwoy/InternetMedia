@@ -14,7 +14,6 @@ public class ArticleRepository extends BaseRepository<Article> {
         "FROM articles a " +
         "LEFT JOIN users u ON a.author_id = u.id ";
 
-    // ---------- CRUD ----------
 
     @Override
     public void create(Article a) throws SQLException {
@@ -77,8 +76,6 @@ public class ArticleRepository extends BaseRepository<Article> {
         }
     }
 
-    // ---------- ПОИСК (2 способа) ----------
-
     public List<Article> searchByTitle(String keyword) throws SQLException {
         String sql = BASE_SELECT + "WHERE a.title ILIKE ? ORDER BY a.id";
         return queryList(sql, ps -> ps.setString(1, "%" + keyword + "%"));
@@ -88,8 +85,6 @@ public class ArticleRepository extends BaseRepository<Article> {
         String sql = BASE_SELECT + "WHERE a.category = ? ORDER BY a.id";
         return queryList(sql, ps -> ps.setString(1, category));
     }
-
-    // ---------- ФИЛЬТР (3 способа) ----------
 
     public List<Article> filterByStatus(Status status) throws SQLException {
         String sql = BASE_SELECT + "WHERE a.status = ? ORDER BY a.id";
@@ -109,16 +104,12 @@ public class ArticleRepository extends BaseRepository<Article> {
         });
     }
 
-    // ---------- СОРТИРОВКА ----------
-
     public List<Article> sort(String column, boolean asc) throws SQLException {
         List<String> allowed = List.of("title", "category", "status", "created_at", "id");
         if (!allowed.contains(column)) column = "id";
         String sql = BASE_SELECT + "ORDER BY a." + column + (asc ? " ASC" : " DESC");
         return queryList(sql, null);
     }
-
-    // ---------- СТАТИСТИКА ----------
 
     public long countAll() throws SQLException {
         String sql = "SELECT COUNT(*) FROM articles";
@@ -128,8 +119,6 @@ public class ArticleRepository extends BaseRepository<Article> {
             return rs.next() ? rs.getLong(1) : 0;
         }
     }
-
-    // ---------- Маппинг ----------
 
     @Override
     protected Article mapRow(ResultSet rs) throws SQLException {

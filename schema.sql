@@ -23,11 +23,11 @@ CREATE INDEX idx_articles_category ON articles(category);
 CREATE INDEX idx_articles_status   ON articles(status);
 
 INSERT INTO users (username, email, role) VALUES
-    ('ivan_petrov',   'ivan@mail.ru',   'AUTHOR'),
-    ('olga_smirnova', 'olga@mail.ru',   'AUTHOR'),
-    ('petr_ivanov',   'petr@mail.ru',   'EDITOR'),
-    ('anna_k',        'anna@mail.ru',   'AUTHOR'),
-    ('sergey_m',      'sergey@mail.ru', 'ADMIN');
+    ('ilya_turanov', 'ilya@mail.ru',   'AUTHOR'),
+    ('sergei_shevaldyshev', 'sergei@mail.ru',   'AUTHOR'),
+    ('alena_telegina', 'alena@mail.ru',   'EDITOR'),
+    ('polina_harcii', 'polina@mail.ru',   'AUTHOR'),
+    ('test_test', 'test@mail.ru', 'ADMIN');
 
 INSERT INTO articles (title, content, category, status, author_id) VALUES
     ('Новости технологий',       'Полный текст...',  'Технологии', 'PUBLISHED', 1),

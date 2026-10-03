@@ -54,7 +54,6 @@ public class ArticleService {
         articleRepository.delete(id);
     }
 
-    // --- Поиск ---
     public List<Article> searchByTitle(String keyword) throws SQLException {
         if (keyword == null || keyword.isBlank())
             throw new BusinessException("Поисковый запрос не может быть пустым");
@@ -67,7 +66,6 @@ public class ArticleService {
         return articleRepository.searchByCategory(category);
     }
 
-    // --- Фильтр ---
     public List<Article> filterByStatus(Status status) throws SQLException {
         if (status == null)
             throw new BusinessException("Статус не может быть пустым");
@@ -84,7 +82,6 @@ public class ArticleService {
         return articleRepository.filterCombined(category, status);
     }
 
-    // --- Сортировка ---
     public List<Article> sort(String column, boolean asc) throws SQLException {
         return articleRepository.sort(column, asc);
     }

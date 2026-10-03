@@ -3,9 +3,6 @@ import exception.EntityNotFoundException;
 import model.Article;
 import model.Status;
 import model.User;
-import repository.ArticleRepository;
-import repository.Repository;
-import repository.UserRepository;
 import service.ArticleService;
 import service.StatisticsService;
 import service.UserService;
@@ -52,7 +49,6 @@ public class Main {
                     case 14 -> printUsers(userService.getAllUsers());
                     case 15 -> exportToExcel();
                     case 16 -> exportToCsv();
-                    case 17 -> demonstratePolymorphism();
                     case 0  -> { System.out.println("Пока!"); return; }
                     default -> System.out.println("Нет такого пункта.");
                 }
@@ -82,11 +78,8 @@ public class Main {
         System.out.println("14. Список пользователей");
         System.out.println("15. Экспорт в Excel");
         System.out.println("16. Экспорт в CSV");
-        System.out.println("17. Демонстрация полиморфизма");
         System.out.println(" 0. Выход");
     }
-
-    // ---------- Обработчики ----------
 
     private static void createArticle() throws SQLException {
         String title    = readString("Название: ");
@@ -190,28 +183,6 @@ public class Main {
         }
     }
 
-    /** Демонстрация полиморфизма: одна переменная типа Repository<?> — разные реализации. */
-    private static void demonstratePolymorphism() throws SQLException {
-        System.out.println("\n--- Демонстрация полиморфизма ---");
-        System.out.println("Список репозиториев типа Repository<?>:\n");
-
-        List<Repository<?>> repositories = List.of(
-            new UserRepository(),
-            new ArticleRepository()
-        );
-
-        for (Repository<?> repo : repositories) {
-            String name = repo.getClass().getSimpleName();
-            int size = repo.findAll().size();
-            System.out.printf("  %-20s → %d записей%n", name, size);
-        }
-
-        System.out.println("\nОдин и тот же вызов findAll() у разных классов");
-        System.out.println("даёт разный результат — это полиморфизм.");
-    }
-
-    // ---------- Вывод ----------
-
     private static void printArticles(List<Article> list) {
         if (list.isEmpty()) System.out.println("(пусто)");
         else list.forEach(System.out::println);
@@ -221,8 +192,6 @@ public class Main {
         if (list.isEmpty()) System.out.println("(пусто)");
         else list.forEach(System.out::println);
     }
-
-    // ---------- Ввод ----------
 
     private static String readString(String prompt) {
         System.out.print(prompt);
